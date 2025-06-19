@@ -1,0 +1,79 @@
+<!-- Cycle tracking -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SheSync - Cycle Tracker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fff0f5;
+      color: #333;
+      padding: 20px;
+    }
+    .container {
+      max-width: 500px;
+      margin: auto;
+      background: #ffe6f0;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    input, label, button {
+      display: block;
+      margin: 10px 0;
+      width: 100%;
+    }
+    button {
+      background-color: #ffb6c1;
+      border: none;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #ff9eb3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Track Your Cycle</h2>
+    <label for="startDate">Start Date of Last Period:</label>
+    <input type="date" id="startDate" />
+
+    <label for="cycleLength">Average Cycle Length (days):</label>
+    <input type="number" id="cycleLength" value="28" min="21" max="35" />
+
+    <label for="periodLength">Period Duration (days):</label>
+    <input type="number" id="periodLength" value="5" min="1" max="10" />
+
+    <button onclick="predictCycle()">Track</button>
+
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function predictCycle() {
+      const startDate = new Date(document.getElementById('startDate').value);
+      const cycleLength = parseInt(document.getElementById('cycleLength').value);
+      const periodLength = parseInt(document.getElementById('periodLength').value);
+
+      if (isNaN(startDate)) {
+        alert("Please enter a valid date.");
+        return;
+      }
+
+      const nextPeriodStart = new Date(startDate);
+      nextPeriodStart.setDate(startDate.getDate() + cycleLength);
+
+      const periodEnd = new Date(nextPeriodStart);
+      periodEnd.setDate(nextPeriodStart.getDate() + periodLength - 1);
+
+      document.getElementById('result').innerHTML =
+        `<p>🩸 Next Period: <strong>${nextPeriodStart.toDateString()}</strong></p>
+         <p>📆 Ends on: <strong>${periodEnd.toDateString()}</strong></p>`;
+    }
+  </script>
+</body>
+</html>
