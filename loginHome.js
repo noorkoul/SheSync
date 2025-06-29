@@ -1,5 +1,6 @@
-// CALENDER
-
+// =====================
+// Calendar Initialization
+// =====================
 document.addEventListener('DOMContentLoaded', function () {
   const calendarEl = document.getElementById('calendar');
 
@@ -7,7 +8,6 @@ document.addEventListener('DOMContentLoaded', function () {
     initialView: 'dayGridMonth',
     height: 'auto',
     events: [
-      // Placeholder: add logged period days here (manually or from Firebase)
       {
         title: 'Period',
         start: '2025-06-21',
@@ -18,9 +18,9 @@ document.addEventListener('DOMContentLoaded', function () {
       {
         title: 'Period',
         start: '2025-06-22',
+        end: '2025-06-26', // exclusive
         display: 'background',
-        backgroundColor: '#ffe4ec',
-        borderColor: '#f08080'
+        color: '#ffe4ec'
       }
     ]
   });
@@ -28,11 +28,34 @@ document.addEventListener('DOMContentLoaded', function () {
   calendar.render();
 });
 
-// Navigation placeholders
+// =====================
+// Navigation Functions
+// =====================
 function goToCyclePage() {
-  window.location.href = 'cycleTracker.html'; // Create this page later
+  window.location.href = 'cycletracking.html';
 }
 
 function goToPCODPage() {
-  window.location.href = 'pcodRisks.html'; // Create this page later
+  window.location.href = 'riskinsights.html'; 
 }
+
+// =====================
+// Logout Modal Handling
+// =====================
+document.addEventListener('DOMContentLoaded', function () {
+  const modal = document.getElementById('logoutModal');
+  const openBtn = document.getElementById('openLogoutModal');
+  const closeBtn = document.getElementById('closeLogoutModal');
+  const cancelBtn = document.getElementById('cancelLogout');
+  const confirmBtn = document.getElementById('confirmLogout');
+
+  if (openBtn && closeBtn && cancelBtn && confirmBtn && modal) {
+    openBtn.onclick = () => modal.style.display = 'block';
+    closeBtn.onclick = () => modal.style.display = 'none';
+    cancelBtn.onclick = () => modal.style.display = 'none';
+    confirmBtn.onclick = () => {
+      modal.style.display = 'none';
+      window.location.href = 'welcomePage.html'; // or Firebase logout logic
+    };
+  }
+});
